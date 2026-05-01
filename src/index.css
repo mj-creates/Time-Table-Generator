@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-disp: "Orbitron", monospace;
+  --font-body: "Inter Tight", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-bg: #020408;
+  --color-cyan: #00c8ff;
+  --color-cyan-dim: rgba(0, 200, 255, 0.15);
+  --color-green: #00ff9d;
+  --color-purple: #b060ff;
+  --color-text-dim: #7ba8cc;
+  --color-text-dark: #3a6080;
+  --color-border: rgba(0, 200, 255, 0.12);
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-[#e8f4ff] font-body antialiased;
+    cursor: none;
+  }
+}
+
+.glass-panel {
+  @apply bg-[#061020]/60 backdrop-blur-3xl border border-border rounded-xl shadow-2xl;
+}
+
+.scanline {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 200, 255, 0.015) 2px,
+    rgba(0, 200, 255, 0.015) 4px
+  );
+}
+
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,157,0.5); opacity: 1; }
+  50%       { box-shadow: 0 0 0 6px rgba(0,255,157,0); opacity: 0.7; }
+}
+
+.live-dot {
+  @apply rounded-full bg-green;
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+.glow-btn {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.glow-btn::after {
+  content: '';
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+}
+
+.glow-btn:hover::after {
+  @apply opacity-100;
+  transform: translateX(100%);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-cyan/20 rounded-full;
+}
+@keyframes scan {
+  from { top: -100%; opacity: 0; }
+  50% { opacity: 0.5; }
+  to { top: 100%; opacity: 0; }
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-scan {
+  animation: scan 1.5s ease-in-out infinite;
+}
